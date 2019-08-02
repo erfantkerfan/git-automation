@@ -1,0 +1,1 @@
+cd .. & for /d %%i in (*.*) do cd %%i & git push origin master & cd..

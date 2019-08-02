@@ -1,0 +1,1 @@
+cd .. & for /d %%i in (*.*) do cd %%i & git pull origin master & cd..
