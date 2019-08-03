@@ -1,45 +1,71 @@
 @echo off
+setlocal enableextensions enabledelayedexpansion
 title git-automation By Erfan Gholizade erfantkerfan@github
 :loop
-echo -----------------------------------------
-echo use one of the numbers for batch command
-echo 1 . pull origin master
-echo 2 . status
-echo 3 . add .
-echo 4 . commit -m "automated push"
-echo 5 . push origin master
-echo 0 . exit
 echo.
+echo --------------------------------------------------------------------
+echo use one of the numbers for batch command:
+echo.
+echo 1  . pull origin master
+echo 2  . status
+echo 3  . add .
+echo 4  . commit -m "automated push"
+echo 5  . push origin master
+echo.
+echo 11 . push origin master (all projects)
+echo 12 . status (all projects)
+echo 13 . add . (all projects)
+echo 14 . commit -m "automated push" (all projects)
+echo 15 . push origin master (all projects)
+echo.
+echo 0  . exit
+echo.
+
 set /p j=
 cd ..
-IF %j%==1 (
-	@echo on
-	for /d %%i in (*.*) do ( cd %%i & git pull origin master & cd.. )
-	@echo off
+
+for %%p in (0) do if %j% == %%p goto exit
+for %%p in (1 2 3 4 5) do if %j% == %%p goto selective
+for %%p in (11 12 13 14 15) do if %j% == %%p goto all
+
+:selective
+If %j%==1 (set command=git pull origin master)
+If %j%==2 (set command=git status)
+If %j%==3 (set command=git add .)
+If %j%==4 (set command=git commit -m "automated push")
+If %j%==5 (set command=git push origin master)
+echo.
+echo select one of the projects:
+set /a count = 1
+for /d %%i in (*.*) do ( 
+	echo !count! . %%i
+	set /a count += 1
 )
-IF %j%==2 (
-	@echo on
-	for /d %%i in (*.*) do ( cd %%i & git status & cd.. )
-	@echo off
-)
-IF %j%==3 (
-	@echo on
-	for /d %%i in (*.*) do ( cd %%i & git add . & cd.. )
-	@echo off
-)
-IF %j%==4 (
-	@echo on
-	for /d %%i in (*.*) do ( cd %%i & git commit -m "automated push" & cd.. )
-	@echo off
-)
-IF %j%==5 (
-	@echo on
-	for /d %%i in (*.*) do ( cd %%i & git push origin master & cd.. )
-	@echo off
-)
-IF %j%==0 (
-	goto exit
+set /p project=
+set /a count = 1
+for /d %%i in (*.*) do ( 
+	if !project! == !count! (
+		@echo on
+		cd %%i & %command% & cd..
+		@echo off
+	)
+	set /a count += 1
 )
 cd git-automation
+pause
 goto loop
+
+:all
+If %j%==11 (set command=git pull origin master)
+If %j%==12 (set command=git status)
+If %j%==13 (set command=git add .)
+If %j%==14 (set command=git commit -m "automated push")
+If %j%==15 (set command=git push origin master)
+@echo on
+for /d %%i in (*.*) do ( cd %%i & %command% & cd.. )
+@echo off
+cd git-automation
+pause
+goto loop
+
 :exit
