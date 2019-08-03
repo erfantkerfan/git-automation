@@ -9,13 +9,13 @@ echo.
 echo 1  . pull origin master
 echo 2  . status
 echo 3  . add .
-echo 4  . commit -m "automated push"
+echo 4  . commit -m "automated commit"
 echo 5  . push origin master
 echo.
-echo 11 . push origin master (all projects)
+echo 11 . pull origin master (all projects)
 echo 12 . status (all projects)
 echo 13 . add . (all projects)
-echo 14 . commit -m "automated push" (all projects)
+echo 14 . commit -m "automated commit" (all projects)
 echo 15 . push origin master (all projects)
 echo.
 echo 0  . exit
