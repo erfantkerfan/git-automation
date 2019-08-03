@@ -43,4 +43,3 @@ IF %j%==0 (
 cd git-automation
 goto loop
 :exit
-pause
