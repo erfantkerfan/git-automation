@@ -1,1 +1,0 @@
-cd .. & for /d %%i in (*.*) do cd %%i & git commit -m "automated push" & cd../git-automation
