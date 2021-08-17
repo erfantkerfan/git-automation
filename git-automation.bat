@@ -56,7 +56,7 @@ pause
 goto loop
 
 :all
-If %j%==11 (set command=git pull --rebase=false)
+If %j%==11 (set command=git pull)
 If %j%==12 (set command=git status)
 If %j%==13 (set command=git add .)
 If %j%==14 (set command=git commit -m "automated push")
